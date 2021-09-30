@@ -1,5 +1,4 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
 import { Line } from 'react-chartjs-2';
 
 const frequencies = [
@@ -11,19 +10,19 @@ const frequencies = [
   '8000 Hz',
 ];
 
-const data = {
+const initialData = {
   labels: frequencies,
   datasets: [
     {
       label: 'left',
-      data: [12, 19, 3, 5, 2, 3],
+      data: ['0', '0', '0', '0', '0', '0'],
       fill: false,
       backgroundColor: 'rgb(255, 99, 132)',
       borderColor: 'rgba(255, 99, 132, 0.2)',
     },
     {
       label: 'right',
-      data: [5, 2, 3, 12, 19, 3],
+      data: ['0', '0', '0', '0', '0', '0'],
       fill: false,
       backgroundColor: 'rgb(125, 210, 131)',
       borderColor: 'rgba(99, 255, 117, 0.2)',
@@ -43,15 +42,6 @@ const options = {
   },
 };
 
-const initialData = [
-  { frequency: '500 Hz', decibelLeft: '0', decibelRight: '0' },
-  { frequency: '1000 Hz', decibelLeft: '0', decibelRight: '0' },
-  { frequency: '2000 Hz', decibelLeft: '0', decibelRight: '0' },
-  { frequency: '3000 Hz', decibelLeft: '0', decibelRight: '0' },
-  { frequency: '4000 Hz', decibelLeft: '0', decibelRight: '0' },
-  { frequency: '8000 Hz', decibelLeft: '0', decibelRight: '0' },
-];
-
 const inputGroup = [
   { label: '左: ', key: 'left' },
   { label: '右: ', key: 'right' },
@@ -59,12 +49,10 @@ const inputGroup = [
 
 export const ChartsJS = () => {
   const [data, setData] = React.useState(initialData);
-  const { register, handleSubmit, setValue } = useForm();
 
   /* グラフをクリップボードへコピー */
   const handleClick = async () => {
     const canvas = document.getElementById('chart');
-    // const image = canvas.toDataURL('image/png');
     if (!canvas || !navigator) return;
     canvas.toBlob((blob) => {
       // eslint-disable-next-line no-undef
@@ -75,10 +63,9 @@ export const ChartsJS = () => {
 
   const handleChange = (event, index, key) => {
     const { value } = event.target;
-    const newData = data.map((d, i) => {
-      if (index === i) return { ...d, [key]: value };
-      return d;
-    });
+    const targetIndex = data.datasets.findIndex((d) => d.label === key);
+    const newData = { ...data };
+    newData.datasets[targetIndex].data[index] = value;
     setData(newData);
   };
 
@@ -88,7 +75,7 @@ export const ChartsJS = () => {
       <h3>Interface</h3>
       <div>
         {inputGroup.map((item) => (
-          <div>
+          <div key={item.key}>
             <label>{item.label}</label>
             {frequencies.map((_, index) => {
               return (

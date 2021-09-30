@@ -56,7 +56,7 @@ export const Recharts = () => {
       <h3>Interface</h3>
       <div>
         {inputGroup.map((item) => (
-          <div>
+          <div key={item.key}>
             <label>{item.label}</label>
             {frequencies.map((_, index) => {
               return (
