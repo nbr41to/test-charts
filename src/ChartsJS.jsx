@@ -1,16 +1,6 @@
 import React from 'react';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
-import html2canvas from 'html2canvas';
-
-/* データの形式 */
-const initialData = [
-  { frequency: '500 Hz', decibelLeft: '0', decibelRight: '0' },
-  { frequency: '1000 Hz', decibelLeft: '0', decibelRight: '0' },
-  { frequency: '2000 Hz', decibelLeft: '0', decibelRight: '0' },
-  { frequency: '3000 Hz', decibelLeft: '0', decibelRight: '0' },
-  { frequency: '4000 Hz', decibelLeft: '0', decibelRight: '0' },
-  { frequency: '8000 Hz', decibelLeft: '0', decibelRight: '0' },
-];
+import { useForm } from 'react-hook-form';
+import { Line } from 'react-chartjs-2';
 
 const frequencies = [
   '500 Hz',
@@ -21,18 +11,60 @@ const frequencies = [
   '8000 Hz',
 ];
 
-const inputGroup = [
-  { label: '左: ', key: 'decibelLeft' },
-  { label: '右: ', key: 'decibelRight' },
+const data = {
+  labels: frequencies,
+  datasets: [
+    {
+      label: 'left',
+      data: [12, 19, 3, 5, 2, 3],
+      fill: false,
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgba(255, 99, 132, 0.2)',
+    },
+    {
+      label: 'right',
+      data: [5, 2, 3, 12, 19, 3],
+      fill: false,
+      backgroundColor: 'rgb(125, 210, 131)',
+      borderColor: 'rgba(99, 255, 117, 0.2)',
+    },
+  ],
+};
+
+const options = {
+  scales: {
+    yAxes: [
+      {
+        ticks: {
+          beginAtZero: true,
+        },
+      },
+    ],
+  },
+};
+
+const initialData = [
+  { frequency: '500 Hz', decibelLeft: '0', decibelRight: '0' },
+  { frequency: '1000 Hz', decibelLeft: '0', decibelRight: '0' },
+  { frequency: '2000 Hz', decibelLeft: '0', decibelRight: '0' },
+  { frequency: '3000 Hz', decibelLeft: '0', decibelRight: '0' },
+  { frequency: '4000 Hz', decibelLeft: '0', decibelRight: '0' },
+  { frequency: '8000 Hz', decibelLeft: '0', decibelRight: '0' },
 ];
 
-export const Recharts = () => {
+const inputGroup = [
+  { label: '左: ', key: 'left' },
+  { label: '右: ', key: 'right' },
+];
+
+export const ChartsJS = () => {
   const [data, setData] = React.useState(initialData);
+  const { register, handleSubmit, setValue } = useForm();
 
   /* グラフをクリップボードへコピー */
   const handleClick = async () => {
-    const canvas = await html2canvas(document.querySelector('.chart'));
-    // console.log(canvas);
+    const canvas = document.getElementById('chart');
+    // const image = canvas.toDataURL('image/png');
     if (!canvas || !navigator) return;
     canvas.toBlob((blob) => {
       // eslint-disable-next-line no-undef
@@ -52,7 +84,7 @@ export const Recharts = () => {
 
   return (
     <div>
-      <h2>Recharts</h2>
+      <h2>ChartsJS</h2>
       <h3>Interface</h3>
       <div>
         {inputGroup.map((item) => (
@@ -73,31 +105,9 @@ export const Recharts = () => {
       </div>
       <h3>Chart</h3>
       <div className="chart" style={{ width: 'min-content', padding: '20px' }}>
-        <LineChart width={600} height={300} data={data}>
-          <Line
-            type="linear"
-            dataKey="decibelLeft"
-            stroke="tomato"
-            strokeWidth={2}
-          />
-          <Line
-            type="linear"
-            dataKey="decibelRight"
-            stroke="limegreen"
-            strokeWidth={2}
-          />
-          <CartesianGrid stroke="#ccc" />
-          <XAxis dataKey="frequency" />
-          <YAxis />
-        </LineChart>
+        <Line id="chart" data={data} options={options} />
       </div>
       <button onClick={handleClick}>COPY📋</button>
-      <div>
-        <h3>Date type</h3>
-        <pre>
-          <code>{JSON.stringify(data, null, 4)}</code>
-        </pre>
-      </div>
       <style jsx>{`
         input {
           width: 32px;
