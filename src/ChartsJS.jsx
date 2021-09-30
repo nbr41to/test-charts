@@ -35,7 +35,7 @@ const options = {
     yAxes: [
       {
         ticks: {
-          beginAtZero: true,
+          min: 0,
         },
       },
     ],
@@ -72,6 +72,14 @@ export const ChartsJS = () => {
   return (
     <div>
       <h2>ChartsJS</h2>
+      <a
+        href="https://github.com/nbr41to/test-charts/blob/main/src/ChartsJS.jsx"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        source:
+        https://github.com/nbr41to/test-charts/blob/main/src/ChartsJS.jsx
+      </a>
       <h3>Interface</h3>
       <div>
         {inputGroup.map((item) => (
@@ -92,14 +100,21 @@ export const ChartsJS = () => {
       </div>
       <h3>Chart</h3>
       <div className="chart" style={{ width: 'min-content', padding: '20px' }}>
-        <Line id="chart" data={data} options={options} />
+        <Line
+          id="chart"
+          data={data}
+          options={options}
+          width={600}
+          height={360}
+        />
       </div>
       <button onClick={handleClick}>COPY📋</button>
-      <style jsx>{`
-        input {
-          width: 32px;
-        }
-      `}</style>
+      <div>
+        <h3>Date type</h3>
+        <pre>
+          <code>{JSON.stringify(data, null, 4)}</code>
+        </pre>
+      </div>
     </div>
   );
 };

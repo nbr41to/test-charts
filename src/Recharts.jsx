@@ -1,5 +1,13 @@
 import React from 'react';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  LabelList,
+  Label,
+} from 'recharts';
 import html2canvas from 'html2canvas';
 
 /* データの形式 */
@@ -53,6 +61,14 @@ export const Recharts = () => {
   return (
     <div>
       <h2>Recharts</h2>
+      <a
+        href="https://github.com/nbr41to/test-charts/blob/main/src/Recharts.jsx"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        source:
+        https://github.com/nbr41to/test-charts/blob/main/src/Recharts.jsx
+      </a>
       <h3>Interface</h3>
       <div>
         {inputGroup.map((item) => (
@@ -73,22 +89,40 @@ export const Recharts = () => {
       </div>
       <h3>Chart</h3>
       <div className="chart" style={{ width: 'min-content', padding: '20px' }}>
-        <LineChart width={600} height={300} data={data}>
+        <LineChart
+          width={600}
+          height={300}
+          data={data}
+          margin={{ top: 30, right: 5, bottom: 30, left: 5 }}
+        >
+          <XAxis dataKey="frequency">
+            <Label value="frequency" position="bottom" />
+          </XAxis>
+          <YAxis>
+            <Label value="decibel" position="left" />
+          </YAxis>
           <Line
             type="linear"
             dataKey="decibelLeft"
             stroke="tomato"
             strokeWidth={2}
-          />
+          >
+            <LabelList
+              dataKey="decibelLeft"
+              position="insideTop"
+              angle="45"
+              content={<div>aaaa</div>}
+            />
+          </Line>
           <Line
             type="linear"
             dataKey="decibelRight"
             stroke="limegreen"
             strokeWidth={2}
-          />
+          >
+            <LabelList dataKey="decibelRight" position="insideTop" angle="45" />
+          </Line>
           <CartesianGrid stroke="#ccc" />
-          <XAxis dataKey="frequency" />
-          <YAxis />
         </LineChart>
       </div>
       <button onClick={handleClick}>COPY📋</button>
@@ -98,11 +132,6 @@ export const Recharts = () => {
           <code>{JSON.stringify(data, null, 4)}</code>
         </pre>
       </div>
-      <style jsx>{`
-        input {
-          width: 32px;
-        }
-      `}</style>
     </div>
   );
 };
