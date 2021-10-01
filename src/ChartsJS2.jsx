@@ -10,12 +10,14 @@ const initialData = {
       data: ['100', '100', '100'],
       fill: false,
       borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'rgb(255, 99, 132)',
     },
     {
       label: 'right',
       data: ['100', '100', '100'],
       fill: false,
       borderColor: 'rgb(125, 210, 131)',
+      backgroundColor: 'rgb(125, 210, 131)',
     },
   ],
 };

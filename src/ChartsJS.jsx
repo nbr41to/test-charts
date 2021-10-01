@@ -18,12 +18,14 @@ const initialData = {
       data: ['0', '0', '0', '0', '0', '0'],
       fill: false,
       borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'rgb(255, 99, 132)',
     },
     {
       label: 'right',
       data: ['0', '0', '0', '0', '0', '0'],
       fill: false,
       borderColor: 'rgb(125, 210, 131)',
+      backgroundColor: 'rgb(125, 210, 131)',
     },
   ],
 };
