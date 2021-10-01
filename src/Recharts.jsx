@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  LineChart,
-  Line,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  LabelList,
-  Label,
-} from 'recharts';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Legend } from 'recharts';
 import html2canvas from 'html2canvas';
 
 /* データの形式 */
@@ -90,38 +82,34 @@ export const Recharts = () => {
       <h3>Chart</h3>
       <div className="chart" style={{ width: 'min-content', padding: '20px' }}>
         <LineChart
-          width={600}
-          height={300}
+          width={700}
+          height={400}
           data={data}
-          margin={{ top: 30, right: 5, bottom: 30, left: 5 }}
+          margin={{ top: 30, right: 50, bottom: 30, left: 20 }}
         >
-          <XAxis dataKey="frequency">
-            <Label value="frequency" position="bottom" />
-          </XAxis>
-          <YAxis>
-            <Label value="decibel" position="left" />
-          </YAxis>
+          <Legend verticalAlign="top" height={60} />
+          <XAxis
+            dataKey="frequency"
+            label={{ value: 'frequency', position: 'bottom' }}
+          />
+          <YAxis
+            label={{ value: 'decibel', angle: -90, position: 'insideLeft' }}
+          />
           <Line
+            name="left"
             type="linear"
             dataKey="decibelLeft"
             stroke="tomato"
             strokeWidth={2}
-          >
-            <LabelList
-              dataKey="decibelLeft"
-              position="insideTop"
-              angle="45"
-              content={<div>aaaa</div>}
-            />
-          </Line>
+            label={{ value: 'left', angle: 10, position: 'top' }}
+          />
           <Line
+            name="right"
             type="linear"
             dataKey="decibelRight"
             stroke="limegreen"
             strokeWidth={2}
-          >
-            <LabelList dataKey="decibelRight" position="insideTop" angle="45" />
-          </Line>
+          />
           <CartesianGrid stroke="#ccc" />
         </LineChart>
       </div>
