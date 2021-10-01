@@ -1,7 +1,6 @@
 export const characterGroups = {
   group1: {
     name: 'group1',
-    decibel: '0',
     characters: [
       'き',
       'た',
@@ -27,7 +26,6 @@ export const characterGroups = {
   },
   group2: {
     name: 'group2',
-    decibel: '0',
     characters: [
       'に',
       'あ',
@@ -53,7 +51,6 @@ export const characterGroups = {
   },
   group3: {
     name: 'group3',
-    decibel: '0',
     characters: [
       'て',
       'ね',

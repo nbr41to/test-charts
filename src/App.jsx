@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ChartsJS } from './ChartsJS';
 import { ChartsJS2 } from './ChartsJS2';
 import { Recharts } from './Recharts';
+import { SpeechDiscrimination } from './SpeechDiscrimination';
 
 function App() {
   const [chart, setChart] = useState('ChartsJS');
@@ -15,6 +16,7 @@ function App() {
       {chart === 'ChartsJS' && <ChartsJS />}
       {chart === 'Recharts' && <Recharts />}
       {chart === 'ChartsJS2' && <ChartsJS2 />}
+      <SpeechDiscrimination />
     </div>
   );
 }
