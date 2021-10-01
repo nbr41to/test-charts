@@ -17,28 +17,24 @@ const initialData = {
       label: 'left',
       data: ['0', '0', '0', '0', '0', '0'],
       fill: false,
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgba(255, 99, 132, 0.2)',
+      borderColor: 'rgb(255, 99, 132)',
     },
     {
       label: 'right',
       data: ['0', '0', '0', '0', '0', '0'],
       fill: false,
-      backgroundColor: 'rgb(125, 210, 131)',
-      borderColor: 'rgba(99, 255, 117, 0.2)',
+      borderColor: 'rgb(125, 210, 131)',
     },
   ],
 };
 
 const options = {
   scales: {
-    yAxes: [
-      {
-        ticks: {
-          min: 0,
-        },
-      },
-    ],
+    y: {
+      suggestedMin: 0,
+      suggestedMax: 100,
+      ticks: {},
+    },
   },
 };
 
