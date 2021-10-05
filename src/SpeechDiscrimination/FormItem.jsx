@@ -25,12 +25,14 @@ export const FormItem = ({ className, side, data, changeHandlers }) => {
     <StyledFormItem className={`${className}`}>
       <div>{side === 'left' ? '左:' : '右:'}</div>
       {data.map((group, groupIndex) => {
+        // console.log(group);
+        // console.log(group.labels[groupIndex])
         return (
-          <div className="characters_input">
+          <div key={groupIndex} className="characters_input">
             <div className="decibel_input">
               <input
                 type="number"
-                // value={group.labels[groupIndex]}
+                value={group.decibel}
                 onChange={(e) => changeHandlers.labels(e, side, groupIndex)}
               />
               <span>dB</span>
@@ -40,9 +42,12 @@ export const FormItem = ({ className, side, data, changeHandlers }) => {
                 key={charIndex}
                 character={character}
                 inputValue={group.characters[`${character}`]}
-                onChange={(e) => {
-                  changeHandlers.characters(e, side, character, groupIndex);
-                }}
+                onClickToggle={() =>
+                  changeHandlers.charactersToggle(side, groupIndex, character)
+                }
+                onChange={(e) =>
+                  changeHandlers.characters(e, side, groupIndex, character)
+                }
               />
             ))}
             <div>
@@ -60,5 +65,16 @@ const StyledFormItem = styled.div`
   > .characters_input {
     display: flex;
     align-items: center;
+    > .decibel_input {
+      > input {
+        width: 32px;
+        height: 20px;
+        font-size: 18px;
+        text-align: right;
+      }
+      > input[type='number']::-webkit-inner-spin-button {
+        appearance: none;
+      }
+    }
   }
 `;

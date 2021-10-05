@@ -7,7 +7,11 @@ const options = {
     y: {
       suggestedMin: 0,
       suggestedMax: 100,
-      ticks: {},
+      ticks: {
+        callback: function (tick) {
+          return tick.toString() + '%';
+        },
+      },
     },
   },
 };
@@ -15,14 +19,17 @@ const options = {
 export const Chart = ({ className, data }) => {
   /* グラフをクリップボードへコピー */
   const handleClick = async () => {
-    const canvas = document.getElementById('chart');
-    if (!canvas || !navigator) return;
-    canvas.toBlob((blob) => {
-      // eslint-disable-next-line no-undef
-      const image = new ClipboardItem({ 'image/png': blob });
-      navigator.clipboard.write([image]);
-    });
-    alert('グラフをクリップボードにコピーしました。');
+    try {
+      const canvas = document.getElementById('chart');
+      if (!canvas || !navigator) return;
+      await canvas.toBlob((blob) => {
+        // eslint-disable-next-line no-undef
+        const image = new ClipboardItem({ 'image/png': blob });
+        navigator.clipboard.write([image]);
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -36,4 +43,5 @@ export const Chart = ({ className, data }) => {
 const StyledChart = styled.div`
   display: flex;
   flex-direction: column;
+  width: min-content;
 `;

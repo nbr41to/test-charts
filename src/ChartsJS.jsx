@@ -15,20 +15,37 @@ const initialData = {
   datasets: [
     {
       label: 'left',
-      data: ['0', '0', '0', '0', '0', '0'],
+      data: ['20', '30', '14', '24', '5', '32'],
       fill: false,
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgb(255, 99, 132)',
+      pointStyle: 'star',
+      radius: 8,
     },
     {
       label: 'right',
-      data: ['0', '0', '0', '0', '0', '0'],
+      data: ['10', '22', '32', '40', '45', '48'],
       fill: false,
       borderColor: 'rgb(125, 210, 131)',
       backgroundColor: 'rgb(125, 210, 131)',
+      pointStyle: 'triangle',
+      radius: 10,
     },
   ],
 };
+
+const pointStyles = [
+  'circle',
+  'cross',
+  'crossRot',
+  'dash',
+  'line',
+  'rect',
+  'rectRounded',
+  'rectRot',
+  'star',
+  'triangle',
+];
 
 const options = {
   scales: {
@@ -67,6 +84,14 @@ export const ChartsJS = () => {
     setData(newData);
   };
 
+  const handlePointStyleChange = (event, index, key) => {
+    const { value } = event.target;
+    const targetIndex = data.datasets.findIndex((d) => d.label === key);
+    const newData = { ...data };
+    newData.datasets[targetIndex].pointStyle = value;
+    setData(newData);
+  };
+
   return (
     <div>
       <h2>ChartsJS</h2>
@@ -80,16 +105,16 @@ export const ChartsJS = () => {
       </a>
       <h3>Interface</h3>
       <div>
-        {inputGroup.map((item) => (
+        {inputGroup.map((item, index) => (
           <div key={item.key}>
             <label>{item.label}</label>
-            {frequencies.map((_, index) => {
+            {frequencies.map((_, i) => {
               return (
                 <input
-                  key={index}
-                  defaultValue="0"
+                  key={i}
+                  value={data.datasets[index].data[i]}
                   type="number"
-                  onChange={(e) => handleChange(e, index, item.key)}
+                  onChange={(e) => handleChange(e, i, item.key)}
                 />
               );
             })}
@@ -97,6 +122,18 @@ export const ChartsJS = () => {
         ))}
       </div>
       <h3>Chart</h3>
+      <label>pointStyle: </label>
+      <select
+        // value={data.datasets[0].pointStyle}
+        onChange={(e) => handlePointStyleChange(e, 0, 'left')}
+      >
+        {pointStyles.map((item, index) => (
+          <option key={index} value={item}>
+            {item}
+          </option>
+        ))}
+      </select>
+
       <div className="chart" style={{ width: 'min-content', padding: '20px' }}>
         <Line
           id="chart"
