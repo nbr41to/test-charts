@@ -134,6 +134,14 @@ export const SpeechDiscrimination = () => {
   return (
     <StyledSpeechDiscrimination>
       <h2>語音弁別能</h2>
+      <a
+        href="https://github.com/nbr41to/test-charts/blob/main/src/SpeechDiscrimination/index.jsx"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        source:
+        https://github.com/nbr41to/test-charts/blob/main/src/SpeechDiscrimination/index.jsx
+      </a>
       <FormGroup
         leftData={leftData}
         rightData={rightData}
